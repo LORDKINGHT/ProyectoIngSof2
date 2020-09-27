@@ -7,29 +7,22 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Este es el Menu Principal</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <div class=container-row>
-      <div id="container-buttons">
-        <ion-button size="large" expand="block">Introducci&oacute;n</ion-button>
-      </div>
-      <div id="container-buttons">
-        <ion-button size="large" expand="block">Informaci&oacute;n</ion-button>
-      </div>
-      <div id="container-buttons">
-        <ion-button size="large" expand="block">Repaso</ion-button>
-      </div>
-      <div id="container-buttons">
-        <ion-button size="large" expand="block">Estudiar</ion-button>
-      </div>
-      <div id="container-buttons">
-        <ion-button size="large" expand="block">Simulacro</ion-button>
-      </div>
+  <section>
+    <div id="container-buttons">
+      <ion-button size="large" expand="block">Introducci&oacute;n</ion-button>
     </div>
-  </div>
+    <div id="container-buttons">
+      <ion-button size="large" expand="block">Informaci&oacute;n</ion-button>
+    </div>
+    <div id="container-buttons">
+      <ion-button [routerLink]="['/review']" size="large" expand="block">Repaso</ion-button>
+    </div>
+    <div id="container-buttons">
+      <ion-button size="large" expand="block">Estudiar</ion-button>
+    </div>
+    <div id="container-buttons">
+      <ion-button size="large" expand="block">Simulacro</ion-button>
+    </div>
+  </section>
 </ion-content>
