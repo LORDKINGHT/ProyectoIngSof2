@@ -1,5 +1,8 @@
 <ion-header translucent>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Regresar" icon="chevron-back-outline" defaultHref="/home"></ion-back-button>
+    </ion-buttons>
     <ion-title>Repaso</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,19 +12,19 @@
   <header>N&uacute;cleo Com&uacute;n</header>
   <section>
     <div id="container-buttons">
-      <ion-button size="large" expand="block" color="medium">Lectura cr&iacute;tica</ion-button>
+      <ion-button size="large" expand="block" color="medium" (click)="presentActionSheet()">Lectura cr&iacute;tica</ion-button>
     </div>
     <div id="container-buttons">
-      <ion-button size="large" expand="block" color="medium">Metem&aacute;ticas</ion-button>
+      <ion-button size="large" expand="block" color="medium" (click)="presentActionSheet()">Metem&aacute;ticas</ion-button>
     </div>
     <div id="container-buttons">
-      <ion-button size="large" expand="block" color="medium">Sociales y ciudadanas</ion-button>
+      <ion-button size="large" expand="block" color="medium" (click)="presentActionSheet()">Sociales y ciudadanas</ion-button>
     </div>
     <div id="container-buttons">
-      <ion-button size="large" expand="block" color="medium">Ciencias naturales</ion-button>
+      <ion-button size="large" expand="block" color="medium" (click)="presentActionSheet()">Ciencias naturales</ion-button>
     </div>
     <div id="container-buttons">
-      <ion-button size="large" expand="block" color="medium">Ingl&eacute;s</ion-button>
+      <ion-button size="large" expand="block" color="medium" (click)="presentActionSheet()">Ingl&eacute;s</ion-button>
     </div>
   </section>
 
