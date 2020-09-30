@@ -18,9 +18,14 @@ const routes: Routes = [
   {
     path: 'review',
     loadChildren: () => import('./review/review.module').then( m => m.ReviewPageModule)
-  },  {
+  },
+  {
     path: 'simulacrum',
     loadChildren: () => import('./simulacrum/simulacrum.module').then( m => m.SimulacrumPageModule)
+  },
+  {
+    path: 'test',
+    loadChildren: () => import('./test/test.module').then( m => m.TestPageModule)
   },
 
 ];

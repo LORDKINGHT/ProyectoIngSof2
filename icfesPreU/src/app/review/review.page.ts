@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-review',
@@ -8,7 +9,7 @@ import { ActionSheetController } from '@ionic/angular';
 })
 export class ReviewPage implements OnInit {
 
-  constructor(public actionSheetController: ActionSheetController) {}
+  constructor(public actionSheetController: ActionSheetController, private _router: Router) {}
 
   ngOnInit() {
   }
@@ -22,32 +23,32 @@ export class ReviewPage implements OnInit {
         text: 'Banco #1',
         icon: 'server-outline',
         handler: () => {
-          console.log('Delete clicked');
+          this._router.navigate(['/test']);
         }
       }, {
         text: 'Banco #2',
         icon: 'server-outline',
         handler: () => {
-          console.log('Share clicked');
+          this._router.navigate(['/test']);
         }
       }, {
         text: 'Banco #3',
         icon: 'server-outline',
         handler: () => {
-          console.log('Play clicked');
+          this._router.navigate(['/test']);
         }
       }, {
         text: 'Banco #4',
         icon: 'server-outline',
         handler: () => {
-          console.log('Favorite clicked');
+          this._router.navigate(['/test']);
         }
       }, {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          console.log('Cancel clicked');
+          this._router.navigate(['/test']);
         }
       }]
     });
