@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Regresar" icon="chevron-back-outline" defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    
+    <ion-title>registration</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Introduzca su nombre</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Introduzca su contraseña</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Confirmar su contraseña</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  
+  <div>
+    <ion-button expand="block" padding color="tertiary"(click)="prosesForm()">Registrar</ion-button>
+</div>
+</ion-content>

@@ -1,7 +1,8 @@
 {
   "name": "icfesPreU",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }
