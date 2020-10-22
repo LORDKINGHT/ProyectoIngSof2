@@ -6,15 +6,15 @@
 
   <ion-item>
     <ion-label position="floating">Email</ion-label>
-    <ion-input></ion-input>
+    <ion-input type="text" [(ngModel)]="user.email"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label position="floating">contraseña</ion-label>
-    <ion-input></ion-input>
+    <ion-input type="text" [(ngModel)]="user.password"></ion-input>
   </ion-item>
   
-  <ion-button (click)="onLogin()">Ingresar</ion-button>
+  <ion-button expand="block" (click)="onLogin()">Ingresar</ion-button>
   <ion-button [routerLink]="['/registration']" expand="block" fill="outline">registrarse</ion-button>
 
 </ion-content>

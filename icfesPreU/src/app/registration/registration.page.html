@@ -1,16 +1,14 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="Regresar" icon="chevron-back-outline" defaultHref="/home"></ion-back-button>
+      <ion-back-button text="" icon="chevron-back-outline" defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    
-    <ion-title>registration</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-item>
-    <ion-label position="floating">Introduzca su email</ion-label>
+    <ion-label position="floating">Introduzca su correo</ion-label>
     <ion-input type="text" [(ngModel)]="user.email"></ion-input>
   </ion-item>
 
@@ -24,7 +22,7 @@
   </ion-item>
   
   <div>
-    <ion-button size="large"(click)="onRegister()">Registrar</ion-button>
-    <ion-button size="large" [routerLink]="['/registration']" expand="block" fill="outline">registrarse</ion-button>
+    <ion-button size="large" expand="block" (click)="onRegister()">Registrar</ion-button>
+    <ion-button size="large" [routerLink]="['/login']" expand="block" fill="outline">Login</ion-button>
 </div>
 </ion-content>

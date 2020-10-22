@@ -12,7 +12,7 @@ export class LoginService {
   public isLogged: any=false;
 
   constructor(public afAuth: AngularFireAuth) {
-   afAuth.authState.subscribe(user =>(this.isLogged= user));
+  afAuth.authState.subscribe(user =>(this.isLogged= user));
 
 }
 //login
