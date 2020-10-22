@@ -5,16 +5,16 @@
 <ion-content>
 
   <ion-item>
-    <ion-label position="floating">Codigo</ion-label>
+    <ion-label position="floating">Email</ion-label>
     <ion-input></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating">Clave</ion-label>
+    <ion-label position="floating">contraseña</ion-label>
     <ion-input></ion-input>
   </ion-item>
   
-  <ion-button [routerLink]="['/home']" expand="block">Ingresar</ion-button>
+  <ion-button (click)="onLogin()">Ingresar</ion-button>
   <ion-button [routerLink]="['/registration']" expand="block" fill="outline">registrarse</ion-button>
 
 </ion-content>
