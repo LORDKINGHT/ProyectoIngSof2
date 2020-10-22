@@ -29,26 +29,26 @@ export class SimulacrumPage implements OnInit {
         text: 'Banco #2',
         icon: 'server-outline',
         handler: () => {
-          console.log('Share clicked');
+          this._router.navigate(['/test']);
         }
       }, {
         text: 'Banco #3',
         icon: 'server-outline',
         handler: () => {
-          console.log('Play clicked');
+          this._router.navigate(['/test']);
         }
       }, {
         text: 'Banco #4',
         icon: 'server-outline',
         handler: () => {
-          console.log('Favorite clicked');
+          this._router.navigate(['/test']);
         }
       }, {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          console.log('Cancel clicked');
+          this._router.navigate(['/test']);
         }
       }]
     });

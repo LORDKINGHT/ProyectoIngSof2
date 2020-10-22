@@ -12,21 +12,20 @@
 <ion-content fullscreen>
 
   <ion-tabs>
-
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="music">
+      <ion-tab-button tab="time">
         <ion-label>Time</ion-label>
         <ion-icon name="hourglass-outline"></ion-icon>
       </ion-tab-button>
-      <ion-tab-button tab="movies">
+      <ion-tab-button tab="previous">
         <ion-label>Previous</ion-label>
         <ion-icon name="caret-back-outline"></ion-icon>
       </ion-tab-button>
-      <ion-tab-button tab="movies">
+      <ion-tab-button tab="next">
         <ion-label>Next</ion-label>
         <ion-icon name="caret-forward-outline"></ion-icon>
       </ion-tab-button>
-      <ion-tab-button tab="games">
+      <ion-tab-button (click)="openModal()">
         <ion-label>Questions</ion-label>
         <ion-icon name="reader-outline"></ion-icon>
       </ion-tab-button>

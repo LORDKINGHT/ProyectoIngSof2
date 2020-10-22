@@ -26,13 +26,10 @@ const routes: Routes = [
   {
     path: 'test',
     loadChildren: () => import('./test/test.module').then( m => m.TestPageModule)
-  },  {
-    path: 'registration',
-    loadChildren: () => import('./registration/registration.module').then( m => m.RegistrationPageModule)
   },
   {
-    path: 'introduction',
-    loadChildren: () => import('./introduction/introduction.module').then( m => m.IntroductionPageModule)
+    path: 'registration',
+    loadChildren: () => import('./registration/registration.module').then( m => m.RegistrationPageModule)
   },
   {
     path: 'study',
@@ -42,8 +39,6 @@ const routes: Routes = [
     path: 'information',
     loadChildren: () => import('./information/information.module').then( m => m.InformationPageModule)
   },
-
-
 ];
 
 @NgModule({

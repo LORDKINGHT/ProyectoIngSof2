@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { QuestionsPage } from '../questions/questions.page';
 
 @Component({
   selector: 'app-review',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestPage implements OnInit {
 
-  constructor() {}
+  constructor(private modalCtrl: ModalController) {}
 
   ngOnInit() {
+  }
+
+  async openModal(){
+
+    const modal = await this.modalCtrl.create({
+      component: QuestionsPage,
+      componentProps: {
+        pregunta: "this.pregunta"
+      }
+    });
+
+    await modal.present();
   }
 
 }
