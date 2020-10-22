@@ -1,40 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import { Observable } from 'rxjs';
-import { LoginService, Dev } from './loginServices/login.service';
-
+import { LoginService } from './loginServices/login.service';
+import {user} from '../shared/user.class';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  private router:Router
-  developers: Dev[] = [];
-  login = {};
+  user:user=new user();
 
-  selectedView = 'devs';
-  constructor(private db: LoginService) {
+  constructor(private router:Router,private authSvc:LoginService){}
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+ async onLogin(){
+const user = await this.authSvc.onLogin(this.user);
+if(user){
+  console.log('Succesfull');
+  this.router.navigateByUrl('/')
+ }
   }
 
-  ngOnInit() {
-    this.db.getDatabaseState().subscribe(ready => {
-      if (ready) {
-        this.db.getDevs().subscribe(devs => {
-          this.developers = devs;
-        })
-        this.login = this.db.getLogin();
-      }
-    });
-  }
+  
+  
 
-  addLogin() {
-    let skills = this.login['skills'].split(',');
-    skills = skills.map(skill => skill.trim());
-
-    this.db.addUser(this.login['user'],this.login['pass'])
-    .then(_ => {
-      this.login = {};
-    });
-  }
 }
