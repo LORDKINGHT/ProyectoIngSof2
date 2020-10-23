@@ -1,28 +1,45 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button text="" icon="chevron-back-outline" defaultHref="/home"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding">
+
+  <form class="form" [formGroup]="validations_form"  (ngSubmit)="formSubmit(validations_form.value)">
+
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese su correo electr&oacute;nico</ion-label>
+      <ion-input type="text" formControlName="email" [(ngModel)]="user.email"></ion-input>
+    </ion-item>
+
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.email">
+        <div class="error-message" *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+<!--  Password -->
+    <ion-item *ngIf="showpassword">
+      <ion-label  position="floating" color="primary">Ingrese su contraseña</ion-label>
+      <ion-icon slot="end" color="primary" name="eye" (click)="togglePasswordText()"></ion-icon>
+      <ion-input type="text" formControlName="password" class="form-controll" required [(ngModel)]="user.password"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="!showpassword">
+      <ion-label  position="floating" color="primary">Ingrese su contraseña</ion-label>
+      <ion-input type="password" formControlName="password" class="form-controll" required [(ngModel)]="user.password"></ion-input>
+      <ion-icon slot="end" color="medium" name="eye-off" (click)="togglePasswordText()"></ion-icon>
+    </ion-item>
+
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.password">
+        <div class="error-message" *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-button size="large" expand="block" class="submit-btn" type="submit"  [disabled]="!validations_form.valid" (click)="onRegister()">Registrarse</ion-button>
+    <ion-button size="large" expand="block" [routerLink]="['/login']"  fill="outline">Login</ion-button>
+    <label class="error-message">{{errorMessage}}</label>
+
+  </form>
 
 <ion-content>
-  <ion-item>
-    <ion-label position="floating">Introduzca su correo</ion-label>
-    <ion-input type="text" [(ngModel)]="user.email"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Introduzca su contraseña</ion-label>
-    <ion-input type="text" [(ngModel)]="user.password"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating">Confirmar su contraseña</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
-  
-  <div>
-    <ion-button size="large" expand="block" (click)="onRegister()">Registrar</ion-button>
-    <ion-button size="large" [routerLink]="['/login']" expand="block" fill="outline">Login</ion-button>
-</div>
-</ion-content>

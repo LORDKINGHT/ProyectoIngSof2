@@ -8,12 +8,16 @@ import { RegistrationPageRoutingModule } from './registration-routing.module';
 
 import { RegistrationPage } from './registration.page';
 
+// Forms
+import { ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RegistrationPageRoutingModule
+    RegistrationPageRoutingModule,
+    ReactiveFormsModule,
   ],
   declarations: [RegistrationPage]
 })

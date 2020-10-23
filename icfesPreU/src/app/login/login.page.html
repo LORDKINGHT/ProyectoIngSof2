@@ -10,11 +10,12 @@
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating">contraseña</ion-label>
-    <ion-input type="text" [(ngModel)]="user.password"></ion-input>
+    <ion-label position="floating">Contraseña</ion-label>
+    <ion-input name="password" [type]="showPassword ? 'text':'password'" [(ngModel)]="user.password"></ion-input>
+    <ion-icon slot="end" name="eye" [name]="passwordToggleIcon" (click)="togglePassword()"> </ion-icon>
   </ion-item>
   
   <ion-button expand="block" (click)="onLogin()">Ingresar</ion-button>
-  <ion-button [routerLink]="['/registration']" expand="block" fill="outline">registrarse</ion-button>
+  <ion-button [routerLink]="['/registration']" expand="block" fill="outline">Registrarse</ion-button>
 
 </ion-content>

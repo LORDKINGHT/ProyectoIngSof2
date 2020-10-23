@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 //firebase
-import { AngularFireAuth } from "@angular/fire/auth";
+import { AngularFireAuth } from '@angular/fire/auth';
 
 //user
-import { user } from "../../shared/user.class";
+import { user } from '../../shared/user.class';
 @Injectable({
   providedIn: "root",
 })
@@ -22,10 +22,10 @@ export class LoginService {
         user.password
       );
     } catch (error) {
-      console.log("Error on login", error);
+      console.log('Error on login', error);
     }
   }
-  //register
+  // register
   async onRegister(user: user) {
     try {
       return await this.afAuth.createUserWithEmailAndPassword(
@@ -33,7 +33,7 @@ export class LoginService {
         user.password
       );
     } catch (error) {
-      console.log("Error on register", error);
+      console.log('Error on register', error);
     }
   }
 }
