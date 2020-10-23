@@ -4,7 +4,10 @@ import {LoginService} from '../login/loginServices/login.service';
 import {user} from '../shared/user.class';
 
 // Forms
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
+
+// Alert
+import { AlertController } from '@ionic/angular';
 
 type NewType = string;
 
@@ -19,6 +22,7 @@ export class RegistrationPage implements OnInit {
     private authSvc: LoginService,
     private router: Router,
     private formBuilder: FormBuilder,
+    public alertController: AlertController,
     ) { }
 user: user = new user();
 
@@ -38,13 +42,26 @@ public showpassword: boolean;
     password: [
       { type: 'required', message: 'La contraseña es requerida' },
       { type: 'minlength', message: 'La contraseña debe contener minimo 8 caracteres. Con una mayuscula, un digito especial (!@#$%*^&) y un número.' }
+    ],
+    password2: [
+      { type: 'required', message: 'La contraseña debe ser igual a la anterior.' },
+      { type: 'minlength', message: 'La contraseña debe contener minimo 8 caracteres. Con una mayuscula, un digito especial (!@#$%*^&) y un número.' }
     ]
   };
+
+  static passwordsMatch(cg: FormGroup): {[err: string]: any} {
+    const pwd1 = cg.get('password');
+    const pwd2 = cg.get('password2');
+    const rv: {[error: string]: any} = {};
+    if ((pwd1.touched || pwd2.touched) && pwd1.value !== pwd2.value) {
+      rv.passwordMismatch = true;
+    }
+    return rv;
+  }
 
   ngOnInit() {
     this.validations_form = this.formBuilder.group({
       email: new FormControl('', Validators.compose([
-
         Validators.minLength(6),
         Validators.maxLength(30),
         Validators.required,
@@ -55,23 +72,37 @@ public showpassword: boolean;
         Validators.maxLength(30),
         Validators.required,
         Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%*^&]).{8,}')
+      ])
+      ),
+      password2: new FormControl('', Validators.compose([
+        Validators.minLength(8),
+        Validators.maxLength(30),
+        Validators.required,
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%*^&]).{8,}')
       ])),
-    });
+    }, {validator: RegistrationPage.passwordsMatch});
   }
 
   async onRegister(){
     // tslint:disable-next-line: no-shadowed-variable
     const user = await this.authSvc.onRegister(this.user);
     if (user){
-      const newLocal = 'Creado exitosamente';
-      console.log(newLocal);
+      this.presentAlert();
+      this.router.navigateByUrl('/login');
     }
   }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-alert',
+      message: 'Usuario creado correctamente',
+      buttons: ['Ok']
+    });
+    await alert.present();
+  }
+
   togglePasswordText() {
     this.showpassword = !this.showpassword;
   }
 
-  formSubmit(login) {
-    console.log('test: ', login);
-}
 }
