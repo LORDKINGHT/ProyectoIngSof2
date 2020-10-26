@@ -9,6 +9,9 @@ import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from
 // Alert
 import { AlertController } from '@ionic/angular';
 
+// Database Firebase
+import { AngularFireDatabase } from '@angular/fire/database';
+
 type NewType = string;
 
 @Component({
@@ -23,6 +26,7 @@ export class RegistrationPage implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     public alertController: AlertController,
+    private db: AngularFireDatabase,
     ) { }
 user: user = new user();
 
@@ -80,6 +84,8 @@ public showpassword: boolean;
         Validators.required,
         Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%*^&]).{8,}')
       ])),
+      lastName: ['', Validators.required],
+      name: ['', Validators.required],
     }, {validator: RegistrationPage.passwordsMatch});
   }
 
@@ -88,14 +94,27 @@ public showpassword: boolean;
     const user = await this.authSvc.onRegister(this.user);
     if (user){
       this.presentAlert();
+      this.db.database.ref('user/' + user.user.uid).push(this.validations_form.value);
+      this.router.navigateByUrl('/home');
+    }else{
       this.router.navigateByUrl('/login');
+      this.presentAlert2();
     }
   }
 
   async presentAlert() {
     const alert = await this.alertController.create({
       cssClass: 'my-alert',
-      message: 'Usuario creado correctamente',
+      message: 'Bienvenido ' + this.validations_form.get('name').value + ' ' + this.validations_form.get('lastName').value,
+      buttons: ['Gracias']
+    });
+    await alert.present();
+  }
+
+  async presentAlert2() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-alert',
+      message: 'La dirección de correo electrónico ya existe',
       buttons: ['Ok']
     });
     await alert.present();

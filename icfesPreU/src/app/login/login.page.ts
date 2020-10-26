@@ -41,7 +41,6 @@ export class LoginPage implements OnInit {
     // tslint:disable-next-line: no-shadowed-variable
     const user = await this.authSvc.onLogin(this.user);
     if (user) {
-      console.log('Succesfull');
       this.router.navigateByUrl('/home');
     }else{
       this.presentAlert();

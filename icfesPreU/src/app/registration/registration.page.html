@@ -2,10 +2,14 @@
 
   <form class="form" [formGroup]="validations_form" >
 
+<!--  Correo -->
+
     <ion-item>
       <ion-label  position="floating" color="primary">Ingrese su correo electr&oacute;nico</ion-label>
       <ion-input type="text" formControlName="email" [(ngModel)]="user.email"></ion-input>
     </ion-item>
+
+<!--  Validacion Correo -->
 
     <div class="validation-errors">
       <ng-container *ngFor="let validation of validation_messages.email">
@@ -16,6 +20,7 @@
     </div>
 
 <!--  Clave -->
+
     <ion-item *ngIf="showpassword">
       <ion-label  position="floating" color="primary">Ingrese su contraseña</ion-label>
       <ion-icon slot="end" color="primary" name="eye" (click)="togglePasswordText()"></ion-icon>
@@ -27,16 +32,20 @@
       <ion-input type="password" formControlName="password" class="form-controll" required [(ngModel)]="user.password"></ion-input>
       <ion-icon slot="end" color="medium" name="eye-off" (click)="togglePasswordText()"></ion-icon>
     </ion-item>
-<!--  Confirmar Clave -->
-<ion-item *ngIf="showpassword">
-  <ion-label  position="floating" color="primary">Confirme su contraseña</ion-label>
-  <ion-input type="text" formControlName="password2" class="form-controll" required></ion-input>
-</ion-item>
 
-<ion-item *ngIf="!showpassword">
-  <ion-label  position="floating" color="primary">Confirme su contraseña</ion-label>
-  <ion-input type="password" formControlName="password2" class="form-controll" required></ion-input>
-</ion-item>
+<!--  Confirmar Clave -->
+
+    <ion-item *ngIf="showpassword">
+      <ion-label  position="floating" color="primary">Confirme su contraseña</ion-label>
+      <ion-input type="text" formControlName="password2" class="form-controll" required></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="!showpassword">
+      <ion-label  position="floating" color="primary">Confirme su contraseña</ion-label>
+      <ion-input type="password" formControlName="password2" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Validacion Clave -->
 
     <div class="validation-errors">
       <ng-container *ngFor="let validation of validation_messages.password">
@@ -45,8 +54,28 @@
         </div>
       </ng-container>
     </div>
+    
+<!--  Ingresar nombre -->
+
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese su nombre</ion-label>
+      <ion-input type="text" formControlName="name" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar apellido -->
+
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese su apellido</ion-label>
+      <ion-input type="text" formControlName="lastName" class="form-controll" required></ion-input>
+    </ion-item>
+
+
+<!--  Boton Registro -->
 
     <ion-button size="large" expand="block" class="submit-btn" type="submit"  [disabled]="!validations_form.valid" (click)="onRegister()">Registrarse</ion-button>
+
+<!--  Boton Login -->
+
     <ion-button size="large" expand="block" [routerLink]="['/login']"  fill="outline">Login</ion-button>
     <label class="error-message">{{errorMessage}}</label>
 
