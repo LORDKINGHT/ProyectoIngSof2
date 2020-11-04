@@ -1,0 +1,191 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" icon="chevron-back-outline" defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Salir</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!--  Seleccionar la seccion -->
+<ion-item>
+  <ion-list>
+    <ion-label>Seccion
+      <ion-button  (click)="changeIsRepaso()" [ngClass]="{'green' : toggle, 'blue': !toggle}">Repaso</ion-button>
+      <ion-button  (click)="changeIsSimulacro()" [ngClass]="{'green' : toggle2, 'blue': !toggle2}">Simulacro</ion-button>
+    </ion-label>
+  </ion-list>
+</ion-item>
+
+<!--  Seleccionar la materia -->
+<ion-item *ngIf="isRepaso == true">
+    <ion-label>Materia</ion-label>
+    <ion-select [interfaceOptions]="" [(ngModel)]="selectMateria" interface="popover" placeholder="Select One">
+      <ion-select-option id="matematicas" value="matematicas">Maths</ion-select-option>
+      <ion-select-option id="español" value="español">Español</ion-select-option>
+      <ion-select-option id="fisica" value="fisica">Fisica</ion-select-option>
+      <ion-select-option id="quimica" value="quimica">Quimica</ion-select-option>
+    </ion-select>
+  
+    <!--  Crear una materia -->
+    <div class="centrado">
+      <ion-button expand="block" fill="outline" (click)="changeShowAgregar()">Agregar Materia</ion-button>
+    </div>
+</ion-item>
+
+
+<!--  Mostrar Opcion si se desea agregar materia -->
+<ion-item *ngIf="showAgregar == true" class="materia" >
+  <ion-label  color="tertiary"  position="floating" >Ingrese la materia a agregar</ion-label>
+    <ion-input type="text" [(ngModel)]="addMateria" id="addMateria"></ion-input>
+  <ion-button color="tertiary"  expand="block" fill="outline" (click)="insertarMateria()"(click)="changeShowAgregar()">Insertar Materia</ion-button>
+</ion-item>
+
+
+<!--  Seleccionar la base de datos -->
+
+<ion-item>
+  <ion-label>Base de Datos</ion-label>
+  <ion-select [interfaceOptions]="" [(ngModel)]="selectDB" interface="popover" placeholder="Select One">
+    <ion-select-option value="db_0">DB_0</ion-select-option>
+    <ion-select-option value="db_1">DB_1</ion-select-option>
+    <ion-select-option value="db_2">DB_2</ion-select-option>
+    <ion-select-option value="db_3">DB_3</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<!--  Crear una nuevo banco de preguntas -->
+<div class="centrado">
+  <ion-button expand="block" fill="outline" (click)="changeShowDB()">Agregar banco de preguntas</ion-button>
+</div>
+
+<!--  Mostrar Opcion si se desea agregar el numero de la pregunta -->
+<ion-item *ngIf="showDB == true" >
+  <ion-label color="tertiary" position="floating">Ingrese el nuevo banco de preguntas</ion-label>
+  <ion-input type="text" ></ion-input>
+<ion-button color="tertiary" expand="block" fill="outline" (click)="insertarDB()"(click)="changeShowDB()">Insertar Banco de Preguntas</ion-button>
+</ion-item>
+
+<!--  Seleccionar la pregunta -->
+<ion-item>
+  <ion-label>Numero de Pregunta</ion-label>
+  <ion-select [interfaceOptions]="" [(ngModel)]="selectPregunta" interface="popover" placeholder="Select One">
+    <ion-select-option value="1">1</ion-select-option>
+    <ion-select-option value="2">2</ion-select-option>
+    <ion-select-option value="3">3</ion-select-option>
+    <ion-select-option value="120">120</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<!--  Crear un numero de pregunta -->
+<div class="centrado">
+    <ion-button expand="block" fill="outline" (click)="changeShowPregunta()">Agregar Numero de Pregunta</ion-button>
+</div>
+
+<!--  Mostrar Opcion si se desea agregar el numero de la pregunta -->
+<ion-item *ngIf="showPregunta == true" >
+    <ion-label color="tertiary" position="floating">Ingrese el numero de la pregunta a agregar</ion-label>
+    <ion-input type="text" ></ion-input>
+  <ion-button color="tertiary" expand="block" fill="outline" (click)="insertarPregunta()"(click)="changeShowPregunta()">Insertar Numero de Pregunta</ion-button>
+</ion-item>
+
+<!--  EMPIEZA EL FORMATO FORMS -->
+<ion-content>
+  <form class="form" [formGroup]="validations_form2"> 
+
+<!--  Ingresar el titulo -->
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese el titulo</ion-label>
+      <ion-input type="text" formControlName="titulo" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar el enunciado -->
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese el enunciado</ion-label>
+      <ion-input type="text" formControlName="enunciado" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar la imagen del enunciado-->
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la imagen del enunciado (link URL)</ion-label>
+      <ion-input type="text" formControlName="imagen_enunciado" class="form-controll" required></ion-input>
+    </ion-item>
+
+
+<!--  Ingresar la primera parte de la pregunta -->
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la primera parte de la pregunta</ion-label>
+      <ion-input type="text" formControlName="pregunta_parte1" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar la imagen de la pregunta -->
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la imagen de la pregunta (link URL)</ion-label>
+      <ion-input type="text" formControlName="imagen_pregunta" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar la segunda parte de la pregunta -->
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la segunda parte de la pregunta</ion-label>
+      <ion-input type="text" formControlName="pregunta_parte2" class="form-controll" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-text>Las respuestas pueden ser una imagen (link URL)</ion-text>
+    </ion-item>
+
+<!--  Ingresar la respuesta A -->
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la respuesta A</ion-label>
+      <ion-input type="text" formControlName="A" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar la respuesta B -->
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la respuesta B</ion-label>
+      <ion-input type="text" formControlName="B" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar la respuesta C -->
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la respuesta C</ion-label>
+      <ion-input type="text" formControlName="C" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar la respuesta D -->
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la respuesta D</ion-label>
+      <ion-input type="text" formControlName="D" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar la respuesta correcta -->
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la respuesta correcta (A,B,C,D)</ion-label>
+      <ion-input type="text" formControlName="rta" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar la pregunta a FIREBASE -->
+    <ion-button color="warning" expand="block" fill="outline"(click)="insertarFirebase()">Insertar Pregunta</ion-button>
+
+<!--  FIN DEL FORMS  -->
+  </form>
+
+<!--  Bottom TAB  -->
+  <ion-item>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="time">
+          <ion-label>Editar</ion-label>
+          <ion-icon name="cloud-download-outline"></ion-icon>
+        </ion-tab-button>
+        <ion-tab-button tab="previous">
+          <ion-label>Agregar</ion-label>
+          <ion-icon name="cloud-upload-outline"></ion-icon>
+        </ion-tab-button>
+        <ion-tab-button tab="next">
+          <ion-label>Eliminar</ion-label>
+          <ion-icon name="cloud-offline-outline"></ion-icon>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-item>
+</ion-content>
