@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-review',
@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
 })
 export class ReviewPage implements OnInit {
 
-  constructor(public actionSheetController: ActionSheetController, private _router: Router) {}
+  constructor(public actionSheetController: ActionSheetController, private router: Router) {}
 
   ngOnInit() {
   }
@@ -23,36 +23,35 @@ export class ReviewPage implements OnInit {
         text: 'Banco #1',
         icon: 'server-outline',
         handler: () => {
-          this._router.navigate(['/test']);
+          this.router.navigate(['/test']);
         }
       }, {
         text: 'Banco #2',
         icon: 'server-outline',
         handler: () => {
-          this._router.navigate(['/test']);
+          this.router.navigate(['/test']);
         }
       }, {
         text: 'Banco #3',
         icon: 'server-outline',
         handler: () => {
-          this._router.navigate(['/test']);
+          this.router.navigate(['/test']);
         }
       }, {
         text: 'Banco #4',
         icon: 'server-outline',
         handler: () => {
-          this._router.navigate(['/test']);
+          this.router.navigate(['/test']);
         }
       }, {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          this._router.navigate(['/test']);
+          this.router.navigate(['/test']);
         }
       }]
     });
     await actionSheet.present();
   }
-
 }

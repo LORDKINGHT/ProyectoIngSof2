@@ -38,7 +38,11 @@ const routes: Routes = [
   {
     path: 'information',
     loadChildren: () => import('./information/information.module').then( m => m.InformationPageModule)
+  },  {
+    path: 'set-question',
+    loadChildren: () => import('./set-question/set-question.module').then( m => m.SetQuestionPageModule)
   },
+
 ];
 
 @NgModule({

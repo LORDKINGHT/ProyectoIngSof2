@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { QuestionsPage } from '../questions/questions.page';
 
+// Infinite Scroll
+import { IonInfiniteScroll } from '@ionic/angular';
+
 @Component({
   selector: 'app-review',
   templateUrl: './test.page.html',
@@ -19,7 +22,7 @@ export class TestPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: QuestionsPage,
       componentProps: {
-        pregunta: "this.pregunta"
+        pregunta: 'this.pregunta'
       }
     });
 

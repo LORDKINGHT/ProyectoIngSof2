@@ -1,0 +1,147 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" icon="chevron-back-outline" defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Agregar Preguntas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!--  Seleccionar la materia -->
+<ion-item>
+  <ion-label>Materia</ion-label>
+  <ion-select [interfaceOptions]="" interface="popover" placeholder="Select One">
+    <ion-select-option value="brown">Maths</ion-select-option>
+    <ion-select-option value="blonde">Español</ion-select-option>
+    <ion-select-option value="black">Fisica</ion-select-option>
+    <ion-select-option value="red">Quimica</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<!--  Crear una materia -->
+
+<div class="centrado">
+    <ion-button expand="block" fill="outline" (click)="changeShowAgregar()">Agregar Materia</ion-button>
+</div>
+
+<!--  Mostrar Opcion si se desea agregar materia -->
+<ion-content *ngIf="showAgregar == true">
+  <ion-label  position="floating" color="primary">Ingrese la materia a agregar</ion-label>
+  <ion-input type="text" ></ion-input>
+  <ion-button expand="block" fill="outline" (click)="insertarMateria()"(click)="changeShowAgregar()">Insertar Materia</ion-button>
+</ion-content>
+
+<!--  Seleccionar la pregunta -->
+<ion-item>
+  <ion-label>Numero de Pregunta</ion-label>
+  <ion-select [interfaceOptions]="" interface="popover" placeholder="Select One">
+    <ion-select-option value="brown">1</ion-select-option>
+    <ion-select-option value="blonde">2</ion-select-option>
+    <ion-select-option value="black">3</ion-select-option>
+    <ion-select-option value="red">120</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<!--  Crear un numero de pregunta -->
+
+<div class="centrado">
+    <ion-button expand="block" fill="outline" (click)="changeShowPregunta()">Agregar Numero de Pregunta</ion-button>
+</div>
+
+<!--  Mostrar Opcion si se desea agregar el numerp de la pregunta -->
+
+<ion-content *ngIf="showPregunta == true">
+  <ion-label  position="floating" color="primary">Ingrese el numero de la pregunta a agregar</ion-label>
+  <ion-input type="text" ></ion-input>
+  <ion-button expand="block" fill="outline" (click)="insertarPregunta()"(click)="changeShowPregunta()">Insertar Numero de Pregunta</ion-button>
+</ion-content>
+
+<ion-content>
+  <form class="form" [formGroup]="validations_form2"> 
+
+<!--  Ingresar el titulo -->
+
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese el titulo</ion-label>
+      <ion-input type="text" formControlName="titulo" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar el enunciado -->
+
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese el enunciado</ion-label>
+      <ion-input type="text" formControlName="enunciado" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar la imagen del enunciado-->
+
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la imagen del enunciado (link URL)</ion-label>
+      <ion-input type="text" formControlName="imagen_enunciado" class="form-controll" required></ion-input>
+    </ion-item>
+
+
+<!--  Ingresar la primera parte de la pregunta -->
+
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la primera parte de la pregunta</ion-label>
+      <ion-input type="text" formControlName="pregunta_parte1" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar la imagen de la pregunta -->
+
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la imagen de la pregunta (link URL)</ion-label>
+      <ion-input type="text" formControlName="imagen_pregunta" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar la segunda parte de la pregunta -->
+
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la segunda parte de la pregunta</ion-label>
+      <ion-input type="text" formControlName="pregunta_parte2" class="form-controll" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-text>Las respuestas pueden ser una imagen (link URL)</ion-text>
+    </ion-item>
+
+<!--  Ingresar la respuesta A -->
+
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la respuesta A</ion-label>
+      <ion-input type="text" formControlName="A" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar la respuesta B -->
+
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la respuesta B</ion-label>
+      <ion-input type="text" formControlName="A" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar la respuesta C -->
+
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la respuesta C</ion-label>
+      <ion-input type="text" formControlName="A" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar la respuesta D -->
+
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la respuesta D</ion-label>
+      <ion-input type="text" formControlName="A" class="form-controll" required></ion-input>
+    </ion-item>
+
+<!--  Ingresar la respuesta correcta -->
+
+    <ion-item>
+      <ion-label  position="floating" color="primary">Ingrese la respuesta correcta (A,B,C,D)</ion-label>
+      <ion-input type="text" formControlName="A" class="form-controll" required></ion-input>
+    </ion-item>
+
+    
+    <ion-button expand="block" fill="outline">Insertar Pregunta</ion-button>
+    
+  </form>
+</ion-content>

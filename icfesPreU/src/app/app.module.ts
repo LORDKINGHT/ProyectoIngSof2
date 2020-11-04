@@ -8,15 +8,16 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-//environment
-import{ environment} from './../environments/environment';
 
-//Firebase
+// Environment
+import { environment} from './../environments/environment';
+
+// Firebase
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import { HttpClientModule } from '@angular/common/http';
-//
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
