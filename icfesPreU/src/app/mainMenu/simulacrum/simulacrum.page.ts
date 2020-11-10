@@ -15,6 +15,7 @@ export class SimulacrumPage implements OnInit {
   }
 
   async presentActionSheet() {
+    const id = 0;
     const actionSheet = await this.actionSheetController.create({
       header: 'Bancos de preguntas',
       backdropDismiss: false,
@@ -23,32 +24,32 @@ export class SimulacrumPage implements OnInit {
         text: 'Banco #1',
         icon: 'server-outline',
         handler: () => {
-          this._router.navigate(['/test']);
+          this._router.navigate(['/test', 1]);
         }
       }, {
         text: 'Banco #2',
         icon: 'server-outline',
         handler: () => {
-          this._router.navigate(['/test']);
+          this._router.navigate(['/test', 2]);
         }
       }, {
         text: 'Banco #3',
         icon: 'server-outline',
         handler: () => {
-          this._router.navigate(['/test']);
+          this._router.navigate(['/test', 3]);
         }
       }, {
         text: 'Banco #4',
         icon: 'server-outline',
         handler: () => {
-          this._router.navigate(['/test']);
+          this._router.navigate(['/test', 4]);
         }
       }, {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          this._router.navigate(['/test']);
+          this._router.navigate(['/test', 5]);
         }
       }]
     });
