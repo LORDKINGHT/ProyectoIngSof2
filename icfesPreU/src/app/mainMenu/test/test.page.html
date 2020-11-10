@@ -28,34 +28,6 @@
 
   <ion-list>
     <ion-item>
-<<<<<<< HEAD
-      <ion-tabs>
-        <ion-tab-bar slot="bottom">
-          <ion-tab-button tab="time">
-            <h6>{{ time | async }}</h6>
-            <!-- <ion-icon name="hourglass-outline"></ion-icon> -->
-            <!-- <ion-button color="primary" (click)="startTimer(0.1)">START</ion-button> -->
-            <!-- <ion-label>Time</ion-label> -->
-          </ion-tab-button>
-          <ion-tab-button tab="previous">
-            <ion-label>Previous</ion-label>
-            <ion-icon name="caret-back-outline"></ion-icon>
-          </ion-tab-button>
-          <ion-tab-button tab="next">
-            <ion-label>Next</ion-label>
-            <ion-icon name="caret-forward-outline"></ion-icon>
-          </ion-tab-button>
-          <ion-tab-button (click)="openModal()">
-            <ion-label>Questions</ion-label>
-            <ion-icon name="reader-outline"></ion-icon>
-          </ion-tab-button>
-        </ion-tab-bar>
-      </ion-tabs>
-    </ion-item>
-    
-  </ion-content>
-
-=======
       <ion-icon slot="end" name="bar-chart-outline"></ion-icon>
       <ion-label>
         <b>{{ title }}</b>
@@ -119,8 +91,9 @@
     <ion-tabs>
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="time">
-          <ion-label>Time</ion-label>
-          <ion-icon name="hourglass-outline"></ion-icon>
+          <!-- <ion-label>Time</ion-label> -->
+          <h6>{{ time | async }}</h6>
+          <!-- <ion-icon name="hourglass-outline"></ion-icon> -->
         </ion-tab-button>
         <ion-tab-button (click)="previousQuestion()">
           <ion-label>Previous</ion-label>
@@ -138,4 +111,3 @@
     </ion-tabs>
   </ion-toolbar>
 </ion-footer>
->>>>>>> bfe9f56c0d8108aa7a9dcd82bf3526cf28b78601

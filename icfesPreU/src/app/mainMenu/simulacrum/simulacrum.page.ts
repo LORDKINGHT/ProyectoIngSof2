@@ -49,7 +49,7 @@ export class SimulacrumPage implements OnInit {
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          this._router.navigate(['/test', 5]);
+          this._router.navigate(['/simulacrum']);
         }
       }]
     });

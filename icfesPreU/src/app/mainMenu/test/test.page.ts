@@ -35,6 +35,8 @@ export class TestPage implements OnInit, AfterViewInit {
 
   ngOnInit() {
 
+    this.startTimer(30);
+
     this.arguments = this.route.snapshot.paramMap.get('id');
     console.log(this.arguments);
 
