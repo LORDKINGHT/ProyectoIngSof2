@@ -131,6 +131,7 @@ status = 'Enable';
     this.presentAlert2();
   }
 
+  // Insertar a la BASE DE DATOS
   async insertarFirebase(){
     if (this.isSimulacro){
       // tslint:disable-next-line: max-line-length
@@ -145,7 +146,9 @@ status = 'Enable';
       this.router.navigateByUrl('/home');
     }
   }
-
+  async getdata(){
+    console.log();
+  }
   async presentAlert() {
     const alert = await this.alertController.create({
       cssClass: 'my-alert',
