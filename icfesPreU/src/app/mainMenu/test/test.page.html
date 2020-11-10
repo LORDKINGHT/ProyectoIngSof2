@@ -1,25 +1,34 @@
-
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        icon="arrow-back-outline"
+        defaultHref="/simulacrum"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="markQuestion()">
+        <ion-icon
+          id="mark"
+          name="bookmark-outline"
+          style="zoom: 1.2"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 <!--  Infinite Scroll -->
+<ion-content fullscreen>
+  <ion-input
+    type="number"
+    [(ngModel)]="numQuestion"
+    style="display: none"
+  ></ion-input>
 
-
-  <ion-content>
-
-    <ion-infinite-scroll>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Bernardo_Strozzi_-_Claudio_Monteverdi_%28c.1630%29.jpg">
-            <ion-text color="white">
-              <h3>
-                H1: The quick brown fox jumps over the lazy dog
-                H1: The quick brown fox jumps over the lazy dog
-                H1: The quick brown fox jumps over the lazy dog
-                H1: The quick brown fox jumps over the lazy dog
-                H1: The quick brown fox jumps over the lazy dog
-              </h3>
-            </ion-text>
-    </ion-infinite-scroll>
-
-<!--  Bottom-->
+  <ion-list>
     <ion-item>
+<<<<<<< HEAD
       <ion-tabs>
         <ion-tab-bar slot="bottom">
           <ion-tab-button tab="time">
@@ -46,3 +55,87 @@
     
   </ion-content>
 
+=======
+      <ion-icon slot="end" name="bar-chart-outline"></ion-icon>
+      <ion-label>
+        <b>{{ title }}</b>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <section style="margin: 15px; margin-bottom: 5px">
+    <ion-text> {{ enunciadoParte1 }} <br /> </ion-text>
+    <ion-text id="enunciado2"> </ion-text>
+  </section>
+
+  <section
+    id="section4"
+    style="margin-left: 15px; margin-right: 15px"
+  ></section>
+
+  <ion-list id="listAns" style="display: none">
+    <ion-item>
+      <ion-label style="margin: 0px">
+        <ion-grid style="padding: 0px">
+          <ion-row>
+            <ion-col size="6" style="padding-top: 12px; padding-bottom: 0px">
+              <b>Elige tu respuesta:</b>
+            </ion-col>
+            <ion-col size="6" style="padding-top: 0px; padding-bottom: 0px">
+              <ion-button
+                value="A"
+                class="answer Answer"
+                (click)="selectedAnswer('A')"
+                ><b>A</b></ion-button
+              >
+              <ion-button
+                value="B"
+                class="answer Answer"
+                (click)="selectedAnswer('B')"
+                ><b>B</b></ion-button
+              >
+              <ion-button
+                value="C"
+                class="answer Answer"
+                (click)="selectedAnswer('C')"
+                ><b>C</b></ion-button
+              >
+              <ion-button
+                value="D"
+                class="answer Answer"
+                (click)="selectedAnswer('D')"
+                ><b>D</b></ion-button
+              >
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="time">
+          <ion-label>Time</ion-label>
+          <ion-icon name="hourglass-outline"></ion-icon>
+        </ion-tab-button>
+        <ion-tab-button (click)="previousQuestion()">
+          <ion-label>Previous</ion-label>
+          <ion-icon name="caret-back-outline"></ion-icon>
+        </ion-tab-button>
+        <ion-tab-button (click)="nextQuestion()">
+          <ion-label>Next</ion-label>
+          <ion-icon name="caret-forward-outline"></ion-icon>
+        </ion-tab-button>
+        <ion-tab-button (click)="openModal()">
+          <ion-label>Questions</ion-label>
+          <ion-icon name="reader-outline"></ion-icon>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>
+>>>>>>> bfe9f56c0d8108aa7a9dcd82bf3526cf28b78601
