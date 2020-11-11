@@ -6,6 +6,7 @@ import { Platform } from '@ionic/angular';
 import { AngularFireObject } from '@angular/fire/database';
 import { question } from '../../shared/question.class';
 import { ActivatedRoute } from '@angular/router';
+import * as firebase from 'firebase'
 
 // Infinite Scroll
 import { IonInfiniteScroll } from '@ionic/angular';
@@ -112,18 +113,49 @@ export class TestPage implements OnInit, AfterViewInit {
     const enunciado2: HTMLElement = document.getElementById('enunciado2');
     const section4: HTMLElement = document.getElementById('section4');
     const listAns: HTMLElement = document.getElementById('listAns');
+    const imagen1: HTMLElement = document.getElementById('imagen1');
     if (quest.enunciadoParte1 !== '') {
       this.title = 'Enunciado para las preguntas ' + quest.inicioRangoEnunciado + ' - ' + quest.finRangoEnunciado;
       this.enunciadoParte1 = quest.enunciadoParte1;
+      if (quest.imagenEnunciadoParte1 !== '') {
+        const img = firebase.storage().refFromURL(quest.imagenEnunciadoParte1);
+
+        img.getDownloadURL().then(function (url) {
+          // tslint:disable-next-line: max-line-length
+          imagen1.insertAdjacentHTML('beforeend', '<div id="image"><br/><img src="' + url + '"></div>');
+        }).catch(function (error) {
+          // Handle any errors
+        });
+      }
       if (quest.enunciadoParte2 !== '') {
         // tslint:disable-next-line: max-line-length
         enunciado2.insertAdjacentHTML('beforeend', '<div id="secondText"><br/><ion-text>' + quest.enunciadoParte2 + ' </ion-text><br/></div>');
       }
-      // tslint:disable-next-line: max-line-length
+      if (quest.imagenEnunciadoParte2 !== '') {
+        const img = firebase.storage().refFromURL(quest.imagenEnunciadoParte2);
+
+        img.getDownloadURL().then(function (url) {
+          // tslint:disable-next-line: max-line-length
+          section4.insertAdjacentHTML('beforeend', '<div id="image"><br/><img src="' + url + '"></div>');
+        }).catch(function (error) {
+          // Handle any errors
+        });
+      }
       listAns.style.display = 'none';
+
     } else {
       this.title = 'Pregunta No. ' + this.map.get((num + 1) + '');
       this.enunciadoParte1 = quest.preguntaParte1;
+      if (quest.imagenPregunta !== '') {
+        const img = firebase.storage().refFromURL(quest.imagenPregunta);
+
+        img.getDownloadURL().then(function (url) {
+          // tslint:disable-next-line: max-line-length
+          imagen1.insertAdjacentHTML('beforeend', '<div id="image"><br/><img src="' + url + '"></div>');
+        }).catch(function (error) {
+          // Handle any errors
+        });
+      }
       if (quest.preguntaParte2 !== '') {
         // tslint:disable-next-line: max-line-length
         enunciado2.insertAdjacentHTML('beforeend', '<div id="secondText"><br/><ion-text>' + quest.preguntaParte2 + ' </ion-text><br/></div>');
@@ -152,6 +184,10 @@ export class TestPage implements OnInit, AfterViewInit {
     const listAnswer = document.getElementById('listAnswer');
     if (listAnswer) {
       listAnswer.remove();
+    }
+    const image = document.getElementById('image');
+    if (image) {
+      image.remove();
     }
   }
 
