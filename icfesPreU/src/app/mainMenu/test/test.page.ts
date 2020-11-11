@@ -6,11 +6,13 @@ import { Platform } from '@ionic/angular';
 import { AngularFireObject } from '@angular/fire/database';
 import { question } from '../../shared/question.class';
 import { ActivatedRoute } from '@angular/router';
-import * as firebase from 'firebase'
+import { AlertController } from '@ionic/angular';
+import { Router } from "@angular/router";
 
 // Infinite Scroll
 import { IonInfiniteScroll } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
+import { BoundElementPropertyAst } from '@angular/compiler';
 
 @Component({
   selector: 'app-review',
@@ -31,18 +33,58 @@ export class TestPage implements OnInit, AfterViewInit {
   listQuestions: Array<question> = [];
   arguments = null;
   map = new Map<string, string>();
+  letMinutes = 15;
 
-  constructor(private modalCtrl: ModalController, public questionsService: QuestionsService, private route: ActivatedRoute) { }
+  constructor(private modalCtrl: ModalController, public questionsService: QuestionsService, private route: ActivatedRoute, public alertController: AlertController, private _router: Router) { }
 
   ngOnInit() {
 
-    this.startTimer(30);
+    this.startTimer(0.1);
 
     this.arguments = this.route.snapshot.paramMap.get('id');
     console.log(this.arguments);
 
     this.itemRef = this.questionsService.getQuestions(this.arguments);
     this.requestQuestions();
+  }
+
+  async presentAlertEnd(){
+    const alert = await this.alertController.create({
+      header: 'Final',
+      subHeader: ' ',
+      message: 'La prueba ha finalizado.',
+      buttons: [{
+        text: 'Terminar',
+        role: 'OK',
+        handler: () => {
+          this._router.navigate(['/simulacrum']);
+        }
+      }]
+    });
+
+    await alert.present();
+  }
+
+  async presentAlertHour(){
+    const alert = await this.alertController.create({
+      header: '¡Atención!',
+      subHeader: ' ',
+      message: 'Queda 1 hora para finalizar la prueba.',
+      buttons: ['Aceptar']
+    });
+
+    await alert.present();
+  }
+
+  async presentAlertMinutes(){
+    const alert = await this.alertController.create({
+      header: '¡Atención!',
+      subHeader: ' ',
+      message: 'Quedan 15 minutos para finalizar la prueba.',
+      buttons: ['Aceptar']
+    });
+
+    await alert.present();
   }
 
   ngAfterViewInit(): void {
@@ -116,49 +158,18 @@ export class TestPage implements OnInit, AfterViewInit {
     const enunciado2: HTMLElement = document.getElementById('enunciado2');
     const section4: HTMLElement = document.getElementById('section4');
     const listAns: HTMLElement = document.getElementById('listAns');
-    const imagen1: HTMLElement = document.getElementById('imagen1');
     if (quest.enunciadoParte1 !== '') {
       this.title = 'Enunciado para las preguntas ' + quest.inicioRangoEnunciado + ' - ' + quest.finRangoEnunciado;
       this.enunciadoParte1 = quest.enunciadoParte1;
-      if (quest.imagenEnunciadoParte1 !== '') {
-        const img = firebase.storage().refFromURL(quest.imagenEnunciadoParte1);
-
-        img.getDownloadURL().then(function (url) {
-          // tslint:disable-next-line: max-line-length
-          imagen1.insertAdjacentHTML('beforeend', '<div id="image"><br/><img src="' + url + '"></div>');
-        }).catch(function (error) {
-          // Handle any errors
-        });
-      }
       if (quest.enunciadoParte2 !== '') {
         // tslint:disable-next-line: max-line-length
         enunciado2.insertAdjacentHTML('beforeend', '<div id="secondText"><br/><ion-text>' + quest.enunciadoParte2 + ' </ion-text><br/></div>');
       }
-      if (quest.imagenEnunciadoParte2 !== '') {
-        const img = firebase.storage().refFromURL(quest.imagenEnunciadoParte2);
-
-        img.getDownloadURL().then(function (url) {
-          // tslint:disable-next-line: max-line-length
-          section4.insertAdjacentHTML('beforeend', '<div id="image"><br/><img src="' + url + '"></div>');
-        }).catch(function (error) {
-          // Handle any errors
-        });
-      }
+      // tslint:disable-next-line: max-line-length
       listAns.style.display = 'none';
-
     } else {
       this.title = 'Pregunta No. ' + this.map.get((num + 1) + '');
       this.enunciadoParte1 = quest.preguntaParte1;
-      if (quest.imagenPregunta !== '') {
-        const img = firebase.storage().refFromURL(quest.imagenPregunta);
-
-        img.getDownloadURL().then(function (url) {
-          // tslint:disable-next-line: max-line-length
-          imagen1.insertAdjacentHTML('beforeend', '<div id="image"><br/><img src="' + url + '"></div>');
-        }).catch(function (error) {
-          // Handle any errors
-        });
-      }
       if (quest.preguntaParte2 !== '') {
         // tslint:disable-next-line: max-line-length
         enunciado2.insertAdjacentHTML('beforeend', '<div id="secondText"><br/><ion-text>' + quest.preguntaParte2 + ' </ion-text><br/></div>');
@@ -187,10 +198,6 @@ export class TestPage implements OnInit, AfterViewInit {
     const listAnswer = document.getElementById('listAnswer');
     if (listAnswer) {
       listAnswer.remove();
-    }
-    const image = document.getElementById('image');
-    if (image) {
-      image.remove();
     }
   }
 
@@ -287,10 +294,23 @@ export class TestPage implements OnInit, AfterViewInit {
     }, 1000);
   }
 
+  stopTimer(){
+    clearInterval(this.interval);
+    this.time.next('00:00:00');
+  }
+
+  leftHour: Boolean = true;
+  leftMinutes: Boolean = true;
+
   updateTimeValue(){
     let hours: any = this.timer / 3600;
     let minutes: any = this.timer / 60;
     let seconds: any = this.timer % 60;
+
+    if(minutes >= 60){ minutes -= 60; }
+    if(minutes >= 120){ minutes -= 120; }
+    if(minutes >= 180){ minutes -= 180; }
+    if(minutes >= 240){ minutes -= 240; }
 
     hours = String('0' + Math.floor(hours)).slice(-2);
     minutes = String('0' + Math.floor(minutes)).slice(-2);
@@ -301,9 +321,24 @@ export class TestPage implements OnInit, AfterViewInit {
 
     --this.timer;
 
+    if(minutes == '59'){ //Mensaje restante para 15 minutos de prueba
+      if(this.leftHour){
+        this.presentAlertHour();
+        this.leftHour = false;
+      }
+    }
+
+    if(minutes == '14'){ //Mensaje restante para 15 minutos de prueba
+      if(this.leftMinutes){
+        this.presentAlertMinutes();
+        this.leftMinutes = false;
+      }
+    }
+
     //Aquí viene la condición de bloqueo de examen cuando se termina el tiempo de presentación de prueba
     if(this.timer < 0){ 
-      this.startTimer(0);
+      this.stopTimer();
+      this.presentAlertEnd();
     }
   }
 }
