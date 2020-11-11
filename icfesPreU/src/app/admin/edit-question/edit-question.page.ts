@@ -9,7 +9,13 @@ export class EditQuestionPage implements OnInit {
 
   constructor() { }
 
+  public showDB: boolean;
+
+  public selectPregunta: string;
   ngOnInit() {
   }
-
+  async insertarDB(){
+  }
+  async changeShowDB(){
+  }
 }
