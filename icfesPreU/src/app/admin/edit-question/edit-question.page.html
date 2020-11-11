@@ -5,5 +5,21 @@
 </ion-header>
 
 <ion-content>
+<!--  Mostrar Opcion si se desea agregar el numero de la pregunta -->
+<ion-item *ngIf="showDB == true" >
+  <ion-label color="tertiary" position="floating">Ingrese el nuevo banco de preguntas</ion-label>
+  <ion-input type="text" ></ion-input>
+<ion-button color="tertiary" expand="block" fill="outline" (click)="insertarDB()"(click)="changeShowDB()">Insertar Banco de Preguntas</ion-button>
+</ion-item>
 
+<!--  Seleccionar la pregunta -->
+<ion-item>
+  <ion-label>Numero de Pregunta</ion-label>
+  <ion-select [interfaceOptions]="" [(ngModel)]="selectPregunta" interface="popover" placeholder="Select One">
+    <ion-select-option value="1">1</ion-select-option>
+    <ion-select-option value="2">2</ion-select-option>
+    <ion-select-option value="3">3</ion-select-option>
+    <ion-select-option value="120">120</ion-select-option>
+  </ion-select>
+</ion-item>
 </ion-content>

@@ -92,8 +92,7 @@
     <ion-tabs>
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="time">
-          <ion-label>Time</ion-label>
-          <ion-icon name="hourglass-outline"></ion-icon>
+          <h6>{{ time | async }}</h6>
         </ion-tab-button>
         <ion-tab-button (click)="previousQuestion()">
           <ion-label>Previous</ion-label>
