@@ -4,15 +4,25 @@ import { QuestionsPage } from '../questions/questions.page';
 import { QuestionsService } from './services/questions.service';
 import { Platform } from '@ionic/angular';
 import { AngularFireObject } from '@angular/fire/database';
-import { question } from '../../shared/question.class';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Router } from "@angular/router";
+
+import { question } from '../../shared/question.class';
+import { answer } from '../../shared/answer.class';
+import { answers } from '../../shared/answers.class';
+import { subject } from 'src/app/shared/subject.class';
+import { subjectScore } from '../../shared/subjectScore.class';
+import { score } from '../../shared/score.class';
+
+// Database Firebase
+import { AngularFireDatabase } from '@angular/fire/database';
 
 // Infinite Scroll
 import { IonInfiniteScroll } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { BoundElementPropertyAst } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-review',
@@ -29,22 +39,32 @@ export class TestPage implements OnInit, AfterViewInit {
   totalNumQuestions = 1;
   listMarkQuestions: Array<number> = [];
   listAnswerQuestions: Array<string> = [];
+  listRequestDB: Array<boolean> = [];
+  listSubject: Array<string> = [];
+  txtSubject = 'matemáticas';
   itemRef: AngularFireObject<any>;
   listQuestions: Array<question> = [];
   arguments = null;
   map = new Map<string, string>();
   letMinutes = 15;
+  key = 1;
+  value = 1;
 
-  constructor(private modalCtrl: ModalController, public questionsService: QuestionsService, private route: ActivatedRoute, public alertController: AlertController, private _router: Router) { }
+  constructor(private modalCtrl: ModalController, public questionsService: QuestionsService, private route: ActivatedRoute, public alertController: AlertController, private _router: Router, private db: AngularFireDatabase) { }
 
   ngOnInit() {
 
-    this.startTimer(0.1);
+    this.startTimer(120.60);
 
     this.arguments = this.route.snapshot.paramMap.get('id');
-    console.log(this.arguments);
+    //console.log(this.arguments);
+    
+    for (let i = 0; i < 4; i++){
+      this.listRequestDB = this.listRequestDB.concat([false]);
+    }
 
-    this.itemRef = this.questionsService.getQuestions(this.arguments);
+    this.itemRef = this.questionsService.getQuestions(this.arguments, 'matematicas');
+    this.listRequestDB[0] = true;
     this.requestQuestions();
   }
 
@@ -92,10 +112,7 @@ export class TestPage implements OnInit, AfterViewInit {
 
   requestQuestions() {
     this.itemRef.snapshotChanges().subscribe(actions => {
-
-      let key = 1;
-      let value = 1;
-
+      this.value = 1;
       for (let i = 0; i < actions.payload.numChildren(); i++) {
 
         let questions = new question();
@@ -112,10 +129,11 @@ export class TestPage implements OnInit, AfterViewInit {
           questions.inicioRangoEnunciado = +rangos[0];
           questions.finRangoEnunciado = +rangos[1];
 
-          this.map.set('' + key, 'Enunciado ' + questions.inicioRangoEnunciado + ' - ' + questions.finRangoEnunciado);
-          key++;
+          this.map.set('' + this.key, 'Enunciado ' + questions.inicioRangoEnunciado + ' - ' + questions.finRangoEnunciado);
+          this.key++;
 
           this.listQuestions = this.listQuestions.concat([questions]);
+          this.listSubject = this.listSubject.concat([this.txtSubject]);
 
           questions = new question();
           questions.enunciadoParte1 = '';
@@ -133,23 +151,44 @@ export class TestPage implements OnInit, AfterViewInit {
         questions.respuestaCorrecta = actions.payload.child(quest).child('respuesta_correcta').val();
 
         this.listQuestions = this.listQuestions.concat([questions]);
-        this.map.set('' + key, '' + value);
-        key++;
-        value++;
+        this.listSubject = this.listSubject.concat([this.txtSubject]);
+        this.map.set('' + this.key, '' + this.value);
+        this.key++;
+        this.value++;
       }
 
-      this.totalNumQuestions = this.map.size;
-      this.creatingSection(this.listQuestions, this.numQuestion - 1);
+      if (!this.listRequestDB[1]) {
+        this.itemRef = this.questionsService.getQuestions(this.arguments, 'lecturaCritica');
+        this.listRequestDB[1] = true;
+        this.txtSubject = 'lectura crítica';
+        this.requestQuestions();
+      } else if (!this.listRequestDB[2]) {
+        this.itemRef = this.questionsService.getQuestions(this.arguments, 'socialesCiudadanas');
+        this.listRequestDB[2] = true;
+        this.txtSubject = 'sociales y competencias ciudadanas';
+        this.requestQuestions();
+      } else if (!this.listRequestDB[3]) {
+        this.itemRef = this.questionsService.getQuestions(this.arguments, 'cienciasNaturales');
+        this.listRequestDB[3] = true;
+        this.txtSubject = 'ciencias naturales';
+        this.requestQuestions();
+      } else {
+        this.totalNumQuestions = this.map.size;
+        this.creatingSection(this.listQuestions, this.numQuestion - 1);
 
-      console.log(this.listQuestions);
-      console.log(this.totalNumQuestions);
-      console.log(this.map.get('1'));
+        //console.log(this.listQuestions);
+        //console.log(this.totalNumQuestions);
+        //console.log(this.map.get('1'));
 
-      for (let i = 0; i < this.totalNumQuestions; i++) {
-        this.listMarkQuestions = this.listMarkQuestions.concat([0]);
-        this.listAnswerQuestions = this.listAnswerQuestions.concat(['null']);
+        for (let i = 0; i < this.totalNumQuestions; i++) {
+          this.listMarkQuestions = this.listMarkQuestions.concat([0]);
+          if (this.map.get((i + 1) + '').length > 5) {
+            this.listAnswerQuestions = this.listAnswerQuestions.concat(['null']);
+          } else {
+            this.listAnswerQuestions = this.listAnswerQuestions.concat(['']);
+          }
+        }
       }
-
     });
   }
 
@@ -158,6 +197,8 @@ export class TestPage implements OnInit, AfterViewInit {
     const enunciado2: HTMLElement = document.getElementById('enunciado2');
     const section4: HTMLElement = document.getElementById('section4');
     const listAns: HTMLElement = document.getElementById('listAns');
+    const labelsubject: HTMLElement = document.getElementById('subject');
+    labelsubject.innerHTML = this.listSubject[this.numQuestion-1];
     if (quest.enunciadoParte1 !== '') {
       this.title = 'Enunciado para las preguntas ' + quest.inicioRangoEnunciado + ' - ' + quest.finRangoEnunciado;
       this.enunciadoParte1 = quest.enunciadoParte1;
@@ -205,6 +246,15 @@ export class TestPage implements OnInit, AfterViewInit {
     if (this.numQuestion > 1) {
       this.numQuestion--;
     }
+    const elem: HTMLElement = document.getElementById('iconNext');
+    const elemLabel: HTMLElement = document.getElementById('labelNext');
+    const name = elem.getAttribute('name');
+    if (this.numQuestion !== this.totalNumQuestions) {
+      if (name === 'save-outline') {
+        elem.setAttribute('name', 'caret-forward-outline');
+        elemLabel.innerHTML = 'Next';
+      }
+    }
     this.removeHTML();
     this.creatingSection(this.listQuestions, this.numQuestion - 1);
     this.checkMarkedQuestion();
@@ -214,10 +264,126 @@ export class TestPage implements OnInit, AfterViewInit {
     if (this.numQuestion < this.totalNumQuestions) {
       this.numQuestion++;
     }
+    const elemIcon: HTMLElement = document.getElementById('iconNext');
+    const elemLabel: HTMLElement = document.getElementById('labelNext');
+    const name = elemIcon.getAttribute('name');
+    if (name === 'save-outline') {
+      this.endTestConfirmation();
+    }
+    if (this.numQuestion === this.totalNumQuestions) {
+      if (name === 'caret-forward-outline') {
+        elemIcon.setAttribute('name', 'save-outline');
+        elemLabel.innerHTML = 'End test';
+      }
+    } else {
+      if (name === 'save-outline') {
+        elemIcon.setAttribute('name', 'caret-forward-outline');
+        elemLabel.innerHTML = 'Next';
+      }
+    }
     this.removeHTML();
     this.creatingSection(this.listQuestions, this.numQuestion - 1);
-    console.log(this.listAnswerQuestions);
+    //console.log(this.listAnswerQuestions);
+    //console.log(this.numQuestion);
+    //console.log(this.totalNumQuestions - 1);
     this.checkMarkedQuestion();
+  }
+
+  async endTestConfirmation() {
+    const alert = await this.alertController.create({
+      header: '¡Atención!',
+      subHeader: ' ',
+      message: 'Esta por finalizar su prueba.',
+      buttons: [{
+        text: 'Aceptar',
+        role: 'OK',
+        handler: () => {
+          this.sendTest();
+        }
+      }, 'Cancelar']
+    });
+
+    await alert.present();
+  }
+
+  sendTest() {
+    let response = new answers();
+    let responseScore = new answers();
+    response.idBank = this.arguments;
+    responseScore.idBank = this.arguments;
+    response.idUser = '000001';
+    responseScore.idUser = '000001';
+    response.respuestas = new Array<subject>();
+    responseScore.puntajes = new Array<subjectScore>();
+    let respuesta: Array<answer> = [];
+    let txtMateria = 'matemáticas';
+
+    let numAns = 1;
+    let numAnsSubject = 0;
+    let numAnsCorrect = 0;
+    let numAnsEmpty = 0;
+    for (let i = 0; i < this.listAnswerQuestions.length; i++){
+      if (this.listSubject[i] !== txtMateria) {
+        let materia = new subject();
+        materia.materia = txtMateria;
+        materia.respuestas = respuesta;
+        response.respuestas = response.respuestas.concat([materia]);
+
+        let materiaPuntaje = new subjectScore();
+        let puntaje = new score();
+        puntaje.cantidadPreguntas = numAnsSubject + '';
+        puntaje.cantidadAciertos = numAnsCorrect + '';
+        puntaje.cantidadSinRespuesta = numAnsEmpty + '';
+        puntaje.cantidadErradas = (numAnsSubject - numAnsCorrect - numAnsEmpty) + '';
+        materiaPuntaje.materia = txtMateria;
+        materiaPuntaje.puntajes = puntaje;
+        responseScore.puntajes = responseScore.puntajes.concat([materiaPuntaje]);
+
+        respuesta = Array<answer>();
+        txtMateria = this.listSubject[i];
+        numAnsSubject = 0;
+        numAnsCorrect = 0;
+        numAnsEmpty = 0;
+      }
+      if (this.listAnswerQuestions[i] !== 'null') {
+        let ans = new answer;
+        ans.numAns = numAns + '';
+        ans.ansUser = this.listAnswerQuestions[i];
+        ans.ansCorrect = this.listQuestions[i].respuestaCorrecta;
+        if (ans.ansUser === ans.ansCorrect){
+          ans.statusAns = 'CORRECTO';
+          numAnsCorrect++;
+        } else if (ans.ansUser === '') {
+          ans.statusAns = 'SIN RESPUESTA';
+          numAnsEmpty++;
+        } else {
+          ans.statusAns = 'INCORRECTO';
+        }
+        respuesta = respuesta.concat([ans]);
+        numAns++;
+        numAnsSubject++;
+      }
+    }
+
+    let materia = new subject();
+    materia.materia = txtMateria;
+    materia.respuestas = respuesta;
+    response.respuestas = response.respuestas.concat([materia]);
+
+    let materiaPuntaje = new subjectScore();
+    let puntaje = new score();
+    puntaje.cantidadPreguntas = numAnsSubject + '';
+    puntaje.cantidadAciertos = numAnsCorrect + '';
+    puntaje.cantidadSinRespuesta = numAnsEmpty + '';
+    puntaje.cantidadErradas = (numAnsSubject - numAnsCorrect - numAnsEmpty) + '';
+    materiaPuntaje.materia = txtMateria;
+    materiaPuntaje.puntajes = puntaje;
+    responseScore.puntajes = responseScore.puntajes.concat([materiaPuntaje]);
+    
+    //console.log(response);
+    //console.log(responseScore);
+    this.db.database.ref('/correccion').push(response);
+    this.db.database.ref('/puntaje').push(responseScore);
   }
 
   checkMarkedQuestion() {

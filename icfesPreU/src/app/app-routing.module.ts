@@ -47,6 +47,11 @@ const routes: Routes = [
     path: 'edit-question',
     loadChildren: () => import('./admin/edit-question/edit-question.module').then(m => m.EditQuestionPageModule)
   },
+  {
+    path: 'score',
+    loadChildren: () => import('./mainMenu/score/score.module').then( m => m.ScorePageModule)
+  },
+
 
 ];
 

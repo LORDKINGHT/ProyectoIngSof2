@@ -6,6 +6,7 @@
         defaultHref="/simulacrum"
       ></ion-back-button>
     </ion-buttons>
+    <ion-title id='subject'></ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="markQuestion()">
         <ion-icon
@@ -99,8 +100,8 @@
           <ion-icon name="caret-back-outline"></ion-icon>
         </ion-tab-button>
         <ion-tab-button (click)="nextQuestion()">
-          <ion-label>Next</ion-label>
-          <ion-icon name="caret-forward-outline"></ion-icon>
+          <ion-label id="labelNext" >Next</ion-label>
+          <ion-icon id="iconNext" name="caret-forward-outline"></ion-icon>
         </ion-tab-button>
         <ion-tab-button (click)="openModal()">
           <ion-label>Questions</ion-label>

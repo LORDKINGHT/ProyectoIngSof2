@@ -14,8 +14,8 @@ export class QuestionsService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  getQuestions(id) {
-    this.itemRef = this.db.object('simulacro/matematicas/db_' + id + '/');
+  getQuestions(id, subject) {
+    this.itemRef = this.db.object('simulacro/db_' + id + '/' + subject + '/');
     return this.itemRef;
   }
 }

@@ -1,0 +1,217 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button icon="arrow-back-outline" defaultHref="/simulacrum"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Puntaje</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list style="padding-bottom: 0px;">
+    <ion-item>
+      <ion-icon slot="end" name="bar-chart-outline"></ion-icon>
+      <ion-label>
+        <b>Matemáticas</b>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list style="padding-top: 0px; padding-bottom: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad total de preguntas: {{ mathCT }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list style="padding-top: 0px; padding-bottom: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad de preguntas correctas: {{ mathPC }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list style="padding-top: 0px; padding-bottom: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad de preguntas incorrectas: {{ mathPI }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list style="padding-top: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad de preguntas sin responder: {{ mathPSR }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list style="padding-bottom: 0px;">
+    <ion-item>
+      <ion-icon slot="end" name="bar-chart-outline"></ion-icon>
+      <ion-label>
+        <b>Lectura crítica</b>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list style="padding-top: 0px; padding-bottom: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad total de preguntas: {{ criticalReadingCT }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-list style="padding-top: 0px; padding-bottom: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad de preguntas correctas: {{ criticalReadingPC }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-list style="padding-top: 0px; padding-bottom: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad de preguntas incorrectas: {{ criticalReadingPI }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-list style="padding-top: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad de preguntas sin responder: {{ criticalReadingPSR }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list style="padding-bottom: 0px;">
+    <ion-item>
+      <ion-icon slot="end" name="bar-chart-outline"></ion-icon>
+      <ion-label>
+        <b>Sociales y ciudadanas</b>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list style="padding-top: 0px; padding-bottom: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad total de preguntas: {{ socialCT }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-list style="padding-top: 0px; padding-bottom: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad de preguntas correctas: {{ socialPC }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-list style="padding-top: 0px; padding-bottom: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad de preguntas incorrectas: {{ socialPI }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-list style="padding-top: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad de preguntas sin responder: {{ socialPSR }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list style="padding-bottom: 0px;">
+    <ion-item>
+      <ion-icon slot="end" name="bar-chart-outline"></ion-icon>
+      <ion-label>
+        <b>Ciencias naturales</b>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list style="padding-top: 0px; padding-bottom: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad total de preguntas: {{ scienceCT }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-list style="padding-top: 0px; padding-bottom: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad de preguntas correctas: {{ sciencePC }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-list style="padding-top: 0px; padding-bottom: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad de preguntas incorrectas: {{ sciencePI }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-list style="padding-top: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad de preguntas sin responder: {{ sciencePSR }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list style="padding-bottom: 0px;">
+    <ion-item>
+      <ion-icon slot="end" name="bar-chart-outline"></ion-icon>
+      <ion-label>
+        <b>Inglés</b>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list style="padding-top: 0px; padding-bottom: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad total de preguntas: {{ englishCT }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-list style="padding-top: 0px; padding-bottom: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad de preguntas correctas: {{ englishPC }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-list style="padding-top: 0px; padding-bottom: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad de preguntas incorrectas: {{ englishPI }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <ion-list style="padding-top: 0px;">
+    <ion-item>
+      <ion-label>
+        Cantidad de preguntas sin responder: {{ englishPSR }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
